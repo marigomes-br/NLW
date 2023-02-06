@@ -1,42 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StatusBar } from 'react-native';
+import { Background } from './src/components/Background';
+import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold, Inter_900Black } from '@expo-google-fonts/inter'
+import { Home } from './src/screens/Home';
+import { Loading } from './src/components/Loading';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>MEU PRIMEIRO APP</Text>
-      <StatusBar style="auto" backgroundColor='coral' />
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_800ExtraBold,
+    Inter_900Black
+  });
 
-      <Button title="botão 1" />
-      <Button title="botão 2" />
-      <Button title="botão 3" />
-    </View>
+  return (
+    <Background>
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      { fontsLoaded ? <Home /> : <Loading />}
+    </Background>
   );
 }
-
-interface ButtonProps{
-  title: string;
-}
-
-function Button(props: ButtonProps){
-  return(
-      <TouchableOpacity>
-      <Text>
-        {props.title}
-      </Text>
-    </TouchableOpacity>
-    );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'pink',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  }
-});
